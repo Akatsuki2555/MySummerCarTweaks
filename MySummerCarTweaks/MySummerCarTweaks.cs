@@ -10,7 +10,7 @@ using UnityEngine;
 public class MySummerCarTweaks : Mod {
     public override string ID => nameof(MySummerCarTweaks);
     public override string Version => "1.0";
-    public override string Author => "mldkyt";
+    public override string Author => "アカツキ";
     public override string Description => "A set of tweaks for My Summer Car";
     
     private SettingsCheckBox _disableGreenCar;
