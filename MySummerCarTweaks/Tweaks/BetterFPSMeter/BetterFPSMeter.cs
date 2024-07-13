@@ -14,7 +14,6 @@ namespace MySummerCarTweaks.Tweaks.BetterFPSMeter
         private TextMesh _text;
         private TextMesh _shadowText;
 
-        internal float FakeMultiplier = 1f;
         internal float Frequency = 4;
         internal bool ShowDifference = true;
         internal bool Colors = true;
@@ -30,7 +29,7 @@ namespace MySummerCarTweaks.Tweaks.BetterFPSMeter
         private void Update()
         {
             _time += Time.deltaTime;
-            _values.Add(1f / Time.deltaTime * Frequency * FakeMultiplier);
+            _values.Add(1f / Time.deltaTime);
             if (_time < 1 / Frequency) return;
             _time = 0;
 
@@ -53,7 +52,7 @@ namespace MySummerCarTweaks.Tweaks.BetterFPSMeter
                     finalText += $" <color=\"lime\">(+ {_lastDiff:0})</color>";
                     finalTextNoColor += $" (+ {_lastDiff:0})";
                 }
-                else if (_lastDiff < 0)
+                if (_lastDiff < 0)
                 {
                     finalText += $" <color=\"red\">(- {Math.Abs(_lastDiff):0})</color>";
                     finalTextNoColor += $" (- {Math.Abs(_lastDiff):0})";
