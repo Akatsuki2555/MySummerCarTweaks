@@ -82,6 +82,7 @@ start steam://rungameid/516750</PostBuildEvent>
     <Compile Include="Tweaks\GifuGaugeFix\GifuGaugeFixModule.cs" />
     <Compile Include="Tweaks\GifuGaugeFix\GifuOilGauge.cs" />
     <Compile Include="Tweaks\IMscTweak.cs" />
+    <Compile Include="Tweaks\InfiniteNitrous\InfiniteNitrousModule.cs" />
     <Compile Include="Tweaks\MoneyChanges\MoneyChangesModule.cs" />
     <Compile Include="Tweaks\MoneyChanges\MoneyChangesScript.cs" />
     <Compile Include="Tweaks\MoveJokkeInMenu\MoveJokkeInMenuModule.cs" />
