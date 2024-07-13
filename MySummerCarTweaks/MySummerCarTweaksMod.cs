@@ -18,6 +18,7 @@ using MySummerCarTweaks.Tweaks.MoneyChanges;
 using MySummerCarTweaks.Tweaks.MoveJokkeInMenu;
 using MySummerCarTweaks.Tweaks.PlayerCantDieFromUrine;
 using MySummerCarTweaks.Tweaks.SaveCarTemperature;
+using MySummerCarTweaks.Tweaks.WaterBills;
 
 namespace MySummerCarTweaks
 {
@@ -25,7 +26,7 @@ namespace MySummerCarTweaks
     {
         public override string ID => "MySummerCarTweaks";
         public override string Name => "My Summer Car Tweaks";
-        public override string Version => "2.0.224";
+        public override string Version => "2.0";
         public override string Author => "アカツキ";
         public override string Description => "A set of tweaks for My Summer Car";
 
@@ -46,7 +47,8 @@ namespace MySummerCarTweaks
             new GarageCustomizerModule(),
             new MoneyChangesModule(),
             new GifuGaugeFixModule(),
-            new InfiniteNitrousModule()
+            new InfiniteNitrousModule(),
+            new WaterBillsModule()
         };
 
         public override void ModSetup()
@@ -63,8 +65,12 @@ namespace MySummerCarTweaks
                     catch (Exception e)
                     {
                         ModConsole.LogError($"Module {x.Name} threw an error!");
-                        ModConsole.LogError(e.StackTrace.ToString());
+                        ModConsole.LogError("Message: " + e.Message);
+                        ModConsole.LogError(e.StackTrace);
                     }
+                    
+                    x.HasFinishedLoadMethod = true;
+                    ModConsole.Log("[MSCTweaks]Enable Update method for " + x.Name);
                 });
             });
             SetupFunction(Setup.Update, () =>
@@ -74,6 +80,7 @@ namespace MySummerCarTweaks
                 _tweaks.ForEach(x =>
                 {
                     if (!x.IsEnabled) return;
+                    if (!x.HasFinishedLoadMethod) return;
                     try
                     {
                         x.MSC_OnUpdate(this);
@@ -82,7 +89,8 @@ namespace MySummerCarTweaks
                     {
                         if (x.HasThrownUpdateError) return;
                         ModConsole.LogError($"Module {x.Name} threw an error!");
-                        ModConsole.LogError(e.StackTrace.ToString());
+                        ModConsole.LogError("Message: " + e.Message);
+                        ModConsole.LogError(e.StackTrace);
                         x.HasThrownUpdateError = true;
                     }
                 });
@@ -99,7 +107,8 @@ namespace MySummerCarTweaks
                     catch (Exception e)
                     {
                         ModConsole.LogError($"Module {x.Name} threw an error!");
-                        ModConsole.LogError(e.StackTrace.ToString());
+                        ModConsole.LogError("Message: " + e.Message);
+                        ModConsole.LogError(e.StackTrace);
                     }
                 });
             });
@@ -115,7 +124,8 @@ namespace MySummerCarTweaks
                     catch (Exception e)
                     {
                         ModConsole.LogError($"Module {x.Name} threw an error!");
-                        ModConsole.LogError(e.StackTrace.ToString());
+                        ModConsole.LogError("Message: " + e.Message);
+                        ModConsole.LogError(e.StackTrace);
                     }
                 });
             });
@@ -125,6 +135,7 @@ namespace MySummerCarTweaks
         {
             _tweaks.ForEach(x =>
             {
+                Settings.AddHeader(this, x.Name, collapsedByDefault: true);
                 x.IsEnabledCheckbox = Settings.AddCheckBox(this, $"Enabled {x.Name}", x.Name);
                 x.MSC_ModSettings(this);
             });

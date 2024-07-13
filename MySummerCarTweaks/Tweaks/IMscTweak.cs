@@ -13,6 +13,7 @@ namespace MySummerCarTweaks.Tweaks
         }
 
         internal bool HasThrownUpdateError { get; set; } = false;
+        internal bool HasFinishedLoadMethod { get; set; } = false;
 
         internal SettingsCheckBox IsEnabledCheckbox { get; set; }
 
